@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tyv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чалалга — Сурун (Ай-Херел) & Августа</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #0d1b2a;
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .page {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        .hidden {
+            display: none !important;
+        }
+        
+        /* 1 СТРАНИЦА: ОБЛОЖКА */
+        #page1 {
+            justify-content: center;
+            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+        }
+        .btn-open {
+            background-color: #d97706;
+            color: #ffffff;
+            border: none;
+            padding: 18px 36px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-open:active {
+            transform: scale(0.96);
+        }
+
+        /* 2 СТРАНИЦА: С МУЗЫКОЙ */
+        #page2 {
+            justify-content: flex-start;
+            background-color: #0d1b2a;
+        }
+        .card {
+            width: 100%;
+            background: #1b263b;
+            border: 1px solid #415a77;
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .header-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+        .header-names {
+            font-size: 22px;
+            font-weight: 600;
+            color: #38bdf8;
+            margin-bottom: 6px;
+        }
+        .header-date {
+            font-size: 18px;
+            color: #e2e8f0;
+        }
+        
+        .poem-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 16px;
+        }
+        .poem-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #f8fafc;
+            white-space: pre-line;
+            text-align: center;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 8px;
+        }
+        .info-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.12);
+            border-left: 4px solid #ef4444;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .warning-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #fca5a5;
+            margin-bottom: 10px;
+        }
+        .warning-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #fecdd3;
+            margin-bottom: 8px;
+        }
+
+        /* АНКЕТА */
+        .form-title {
+            font-size: 22px;
+          font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 6px;
+        }
+        .form-subtitle {
+            font-size: 15px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+        .form-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 8
