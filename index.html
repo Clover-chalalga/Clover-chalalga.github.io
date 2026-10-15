@@ -1,381 +1,248 @@
 <!DOCTYPE html>
 <html lang="tyv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Чалалга — Сурун (Ай-Херел) & Августа</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            background-color: #0d1b2a;
-            color: #f8fafc;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
-        .page {
-            width: 100%;
-            max-width: 480px;
-            min-height: 100vh;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: opacity 0.5s ease;
-        }
-        .hidden {
-            display: none !important;
-        }
-        
-        /* 1 СТРАНИЦА: ОБЛОЖКА */
-        #page1 {
-            justify-content: center;
-            background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
-        }
-        .btn-open {
-            background-color: #d97706;
-            color: #ffffff;
-            border: none;
-            padding: 18px 36px;
-            font-size: 17px;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(217, 119, 6, 0.4);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-        .btn-open:active {
-            transform: scale(0.96);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Чалалга — Сурун (Ай-Херел) & Августа</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0d1b2a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+    .page {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px 20px;
+      width: 100%;
+      margin-bottom: 20px;
+      backdrop-filter: blur(10px);
+    }
+    h1 { color: #ff9f1c; font-size: 26px; margin-bottom: 12px; }
+    h2 { color: #ff9f1c; font-size: 20px; margin-bottom: 16px; }
+    p { font-size: 15px; line-height: 1.6; color: #e2e8f0; margin-bottom: 12px; }
+    .photo {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255, 159, 28, 0.3);
+    }
+    .btn {
+      background-color: #ff9f1c;
+      color: #0d1b2a;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+    form { width: 100%; text-align: left; }
+    label { display: block; margin: 12px 0 6px; font-size: 14px; color: #cbd5e1; font-weight: bold; }
+    input[type="text"], select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .radio-group { margin-bottom: 12px; }
+    .radio-group label { display: flex; align-items: center; font-weight: normal; margin: 6px 0; cursor: pointer; }
+    .radio-group input { margin-right: 10px; }
 
-        /* 2 СТРАНИЦА: С МУЗЫКОЙ */
-        #page2 {
-            justify-content: flex-start;
-            background-color: #0d1b2a;
-        }
-        .card {
-            width: 100%;
-            background: #1b263b;
-            border: 1px solid #415a77;
-            border-radius: 16px;
-            padding: 24px 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        .header-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 10px;
-        }
-        .header-names {
-            font-size: 22px;
-            font-weight: 600;
-            color: #38bdf8;
-            margin-bottom: 6px;
-        }
-        .header-date {
-            font-size: 18px;
-            color: #e2e8f0;
-        }
-        
-        .poem-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 16px;
-        }
-        .poem-text {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #f8fafc;
-            white-space: pre-line;
-            text-align: center;
-        }
+    /* Плеер музыки */
+    .audio-player {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      z-index: 999;
+      background: rgba(13, 27, 42, 0.9);
+      border: 1px solid #ff9f1c;
+      border-radius: 50px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .music-btn {
+      background: #ff9f1c;
+      border: none;
+      color: #0d1b2a;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 8px;
+    }
 
-        .info-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 8px;
-        }
-        .info-text {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #e2e8f0;
-        }
-
-        .warning-box {
-            background: rgba(239, 68, 68, 0.12);
-            border-left: 4px solid #ef4444;
-            padding: 18px;
-            border-radius: 12px;
-            text-align: left;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-        .warning-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #fca5a5;
-            margin-bottom: 10px;
-        }
-        .warning-text {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #fecdd3;
-            margin-bottom: 8px;
-        }
-
-        /* АНКЕТА */
-        .form-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 6px;
-        }
-        .form-subtitle {
-            font-size: 15px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            text-align: left;
-            margin-bottom: 18px;
-        }
-        .form-label {
-            display: block;
-            font-size: 15px;
-            font-weight: 600;
-            color: #e2e8f0;
-            margin-bottom: 8px;
-        }
-        .form-input {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #475569;
-            background-color: #0d1b2a;
-            color: #f8fafc;
-            font-size: 16px;
-            outline: none;
-        }
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-            font-size: 15px;
-            color: #f8fafc;
-            cursor: pointer;
-        }
-        .radio-option input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #f59e0b;
-        }
-        .btn-submit {
-            width: 100%;
-            background-color: #f59e0b;
-            color: #0d1b2a;
-            border: none;
-            padding: 16px;
-            font-size: 17px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-        }
-
-        /* ТАЙМЕР */
-        .timer-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 4px;
-        }
-        .timer-subtitle {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 18px;
-        }
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        .timer-block {
-            background-color: #0d1b2a;
-            border: 1px solid #415a77;
-            border-radius: 10px;
-            padding: 12px 4px;
-        }
-        .timer-num {
-            font-size: 22px;
-            font-weight: 700;
-            color: #38bdf8;
-        }
-        .timer-unit {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-    </style>
+    /* Таймер */
+    .timer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+    .time-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px 6px;
+      width: 22%;
+    }
+    .time-box .num { font-size: 20px; font-weight: bold; color: #64ffda; }
+    .time-box .label { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+    
+    .phone-link {
+      display: inline-block;
+      font-size: 20px;
+      font-weight: bold;
+      color: #64ffda;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- 1 СТРАНИЦА (Без музыки) -->
-    <div id="page1" class="page">
-        <button class="btn-open" onclick="startInvitation()">Чалалганы ажыдарда бээр базыптынар</button>
+  <!-- Аудиоплеер для фоновой музыки -->
+  <div class="audio-player">
+    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</button>
+    <span style="font-size: 12px; color: #fff;">Хөгжим</span>
+    <audio id="bgMusic" loop src="music.mp3"></audio>
+  </div>
+
+  <div class="page">
+    <!-- Шапка -->
+    <div class="card">
+      <h1>Дилээшкинче чалалга</h1>
+      <p style="font-size: 18px; color: #64ffda; font-weight: bold;">Сурун (Ай-Херел) & Августа</p>
+      <p>Ноябрь 15, 2026</p>
+    </div>
+    <!-- Первое фото -->
+    <div class="card">
+      <img src="photo_2026-10-15_19-45-06.jpg" alt="Сурун & Августа" class="photo">
     </div>
 
-    <!-- 2 СТРАНИЦА (С музыкой) -->
-    <div id="page2" class="page hidden">
-        
-        <div class="card">
-            <div class="header-title">Дилээшкинче чалалга</div>
-            <div class="header-names">Сурун (Ай-Херел) & Августа</div>
-            <div class="header-date">Ноябрь 15 2026</div>
-        </div>
-
-        <div class="card">
-            <div class="poem-title">Хүндүлуг төрелдер</div>
-            <div class="poem-text">Тоол шагдан, Бурун шагдан өгбелерниң
-Домаа-сөзүн, ёзу-чаңчыл, дүрүмнерин
-Ол-ла олчаан кадагалап арттырып кээр
-Келин кысты айтырар деп байырлалче
-Өгбелерниң ёзу-чанчыл аайы-биле
-өөрүшкүңер, йорээлинер сөңнеп тургаш,
-Өлчей-кежик, буян-чолду актап тургаш
-Актын-агын, кежик-чолдап йорээвишаан
-Амырганнап кээриңерни чаладывыс!</div>
-        </div>
-
-        <div class="card">
-            <div class="info-title">Болур чери</div>
-            <div class="info-text">Кафе династия<br>Г Кызыл, ул комсомольская 56</div>
-            <div class="info-title" style="margin-top: 14px; font-size: 16px;">Эгелээри</div>
-            <div class="info-text">14:00 шакта</div>
-        </div>
-
-        <div class="warning-box">
-            <div class="warning-title">Аалчыларнын кичээнгейинге</div>
-            <div class="warning-text">• Шагында озалдавайын моорлап келириңерни манадывыс!</div>
-            <div class="warning-text">• Байырлалдың программазы бичии уругларга көрдүнмээни-биле, чаштар эдертпезин диледивис!</div>
-        </div>
-        <!-- АНКЕТА -->
-        <div class="card">
-            <div class="form-title">Анкета</div>
-            <div class="form-subtitle">Чалалгага харыылаарынарңы диледивис</div>
-            
-            <div class="form-group">
-                <label class="form-label">Адынар</label>
-                <input type="text" class="form-input" placeholder="Введите имя">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Фамилиянар</label>
-                <input type="text" class="form-input" placeholder="Введите фамилию">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Байырлалга келир силер бе ?</label>
-                <label class="radio-option">
-                    <input type="radio" name="attend" value="yes"> Ийе, баар мен(бис)
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="attend" value="no"> Чок, шыдавас мен(бис)
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Өөңер ээзи (ишти)-биле келир силер бе?</label>
-                <label class="radio-option">
-                    <input type="radio" name="pair" value="yes"> Ийе
-                </label>
-                <label class="radio-option">
-                    <input type="radio" name="pair" value="no"> Чок
-                </label>
-            </div>
-
-            <button class="btn-submit" onclick="alert('Харыыңыз дээш четтирдивис!')">Харыыны чортур</button>
-        </div>
-
-        <!-- ТАЙМЕР -->
-        <div class="card">
-            <div class="timer-title">Байырлалга чедир</div>
-            <div class="timer-subtitle">Арткан хонуктар</div>
-            <div class="timer-grid">
-                <div class="timer-block">
-                    <div class="timer-num" id="days">00</div>
-                    <div class="timer-unit">Хонук</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-num" id="hours">00</div>
-                    <div class="timer-unit">шак</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-num" id="minutes">00</div>
-                    <div class="timer-unit">Минута</div>
-                </div>
-                <div class="timer-block">
-                    <div class="timer-num" id="seconds">00</div>
-                    <div class="timer-unit">Секунда</div>
-                </div>
-            </div>
-        </div>
-
+    <!-- Текст приглашения -->
+    <div class="card">
+      <h2>Хүндүлүг төрелдер!</h2>
+      <p>Тоол шагдан, Бурун шагдан өгбелерниң<br>
+      Домаа-сөзүн, ёзу-чанчыл, дүрүмнерин<br>
+      Ол-ла олчаан кадагалап арттырып кээр<br>
+      Келин кысты айтырар деп байырлалче...</p>
+      <p>Өгбелерниң ёзу-чанчыл айы-биле өөрүшкүнү, йөрээлдиңер сөңнеп тургаш, Амбырганнап кээриңерни чаладывыс!</p>
     </div>
 
-    <!-- Аудиозапись (Ишкин Оглу & Белла — Ынакшыл дээрге) -->
-    <audio id="bgAudio" loop preload="auto">
-        <source src="https://file.qwe.uz/dl/4000/Ishkin_Oglu_Bella_-_Ynakshyl_deerge_(musmore.com).mp3" type="audio/mpeg">
-    </audio>
+    <!-- Второе фото с детьми -->
+    <div class="card">
+      <img src="photo_2026-10-15_19-45-22.jpg" alt="Хылбык-дой" class="photo">
+    </div>
 
-    <script>
-        function startInvitation() {
-            document.getElementById('page1').classList.add('hidden');
-            document.getElementById('page2').classList.remove('hidden');
-            window.scrollTo(0, 0);
+    <!-- Место проведения -->
+    <div class="card">
+      <h2>Болур чери</h2>
+      <p><strong>Кафе «Династия»</strong></p>
+      <p>г. Кызыл, ул. Комсомольская, 56</p>
+    </div>
 
-            var audio = document.getElementById('bgAudio');
-            audio.play().catch(function(e) {
-                console.log("Автовоспроизведение музыки:", e);
-            });
-        }
+    <!-- Анкета -->
+    <div class="card">
+      <h2>Анкета</h2>
+      <p style="font-size: 13px; color: #cbd5e1;">Чалалгага харыылаарыңарны диледивис</p>
+      
+      <form action="https://formspree.io/f/dudupshagdyrzap@gmail.com" method="POST">
+        <label>Адыңар</label>
+        <input type="text" name="name" required placeholder="Введите имя">
 
-        // Отсчет до 15 ноября 2026 года, 14:00
-        const targetDate = new Date('2026-11-15T14:00:00').getTime();
+        <label>Фамилияңар</label>
+        <input type="text" name="surname" required placeholder="Введите фамилию">
 
-        function updateTimer() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+        <label>Байырлалга келир силер бе?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="status" value="Ийе, баар мен(бис)" checked> Ийе, баар мен(бис)</label>
+          <label><input type="radio" name="status" value="Чок, шыдавас мен(бис)"> Чок, шыдавас мен(бис)</label>
+        </div>
 
-            if (distance > 0) {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference = distance) / (1000 * 60 * 60 * 24));
-                const daysNum = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hoursNum = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutesNum = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const secondsNum = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById('days').innerText = String(daysNum).padStart(2, '0');
-                document.getElementById('hours').innerText = String(hoursNum).padStart(2, '0');
-                document.getElementById('minutes').innerText = String(minutesNum).padStart(2, '0');
-                document.getElementById('seconds').innerText = String(secondsNum).padStart(2, '0');
-            }
-        }
+        <label>Өөнүң ээзи (ишти)-биле келир силер бе?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="with_pair" value="Ийе" checked> Ийе</label>
+          <label><input type="radio" name="with_pair" value="Чок"> Чок</label>
+        </div>
 
-        setInterval(updateTimer, 1000);
-        updateTimer();
-    </script>
+        <button type="submit" class="btn">Харыыны чорутур</button>
+      </form>
+    </div>
+
+    <!-- Контакты (где стояла стрелка мышки) -->
+    <div class="card">
+      <h2>Харылзажыр дугаары</h2>
+      <p>Айтырыглар тургустунуп келзе, харылзажыр дугаары:</p>
+      <a href="tel:89955174240" class="phone-link">8 (995) 517-42-40</a>
+    </div>
+
+    <!-- Таймер обратного отсчета -->
+    <div class="card">
+      <h2>Байырлалга чедир</h2>
+      <p style="font-size: 13px; color: #94a3b8;">Арткан хонуктар</p>
+      <div class="timer">
+        <div class="time-box"><div class="num" id="days">00</div><div class="label">Хонук</div></div>
+        <div class="time-box"><div class="num" id="hours">00</div><div class="label">Шаг</div></div>
+        <div class="time-box"><div class="num" id="minutes">00</div><div class="label">Минут</div></div>
+        <div class="time-box"><div class="num" id="seconds">00</div><div class="label">Секунд</div></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Таймер обратного отсчета до 15 ноября 2026
+    const targetDate = new Date("November 15, 2026 15:00:00").getTime();
+    setInterval(function() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff > 0) {
+        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+      }
+    }, 1000);
+
+    // Управление музыкой
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      const btn = document.getElementById("musicBtn");
+      if (music.paused) {
+        music.play();
+        btn.innerText = "⏸️";
+      } else {
+        music.pause();
+        btn.innerText = "🎵";
+      }
+    }
+  </script>
 </body>
 </html>
