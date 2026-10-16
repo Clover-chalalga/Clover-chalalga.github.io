@@ -1,248 +1,352 @@
 <!DOCTYPE html>
 <html lang="tyv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Чалалга — Сурун (Ай-Херел) & Августа</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: #0d1b2a;
-      color: #f8fafc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-    }
-    .page {
-      width: 100%;
-      max-width: 480px;
-      min-height: 100vh;
-      padding: 30px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 24px 20px;
-      width: 100%;
-      margin-bottom: 20px;
-      backdrop-filter: blur(10px);
-    }
-    h1 { color: #ff9f1c; font-size: 26px; margin-bottom: 12px; }
-    h2 { color: #ff9f1c; font-size: 20px; margin-bottom: 16px; }
-    p { font-size: 15px; line-height: 1.6; color: #e2e8f0; margin-bottom: 12px; }
-    .photo {
-      width: 100%;
-      max-height: 380px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(255, 159, 28, 0.3);
-    }
-    .btn {
-      background-color: #ff9f1c;
-      color: #0d1b2a;
-      border: none;
-      padding: 14px 28px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 12px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-    }
-    form { width: 100%; text-align: left; }
-    label { display: block; margin: 12px 0 6px; font-size: 14px; color: #cbd5e1; font-weight: bold; }
-    input[type="text"], select {
-      width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(0, 0, 0, 0.3);
-      color: #fff;
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
-    .radio-group { margin-bottom: 12px; }
-    .radio-group label { display: flex; align-items: center; font-weight: normal; margin: 6px 0; cursor: pointer; }
-    .radio-group input { margin-right: 10px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дилээшкин байырлалынче чалалга — Сурун & Августа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f4f0;
+            --text-color: #4a4542;
+            --gold-color: #c5a059;
+            --container-bg: #ffffff;
+            --border-color: #e6decb;
+        }
 
-    /* Плеер музыки */
-    .audio-player {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      z-index: 999;
-      background: rgba(13, 27, 42, 0.9);
-      border: 1px solid #ff9f1c;
-      border-radius: 50px;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-    .music-btn {
-      background: #ff9f1c;
-      border: none;
-      color: #0d1b2a;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-right: 8px;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+        }
 
-    /* Таймер */
-    .timer {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-    }
-    .time-box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 10px 6px;
-      width: 22%;
-    }
-    .time-box .num { font-size: 20px; font-weight: bold; color: #64ffda; }
-    .time-box .label { font-size: 11px; color: #94a3b8; margin-top: 4px; }
-    
-    .phone-link {
-      display: inline-block;
-      font-size: 20px;
-      font-weight: bold;
-      color: #64ffda;
-      text-decoration: none;
-      margin-top: 8px;
-    }
-  </style>
+        .wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--container-bg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        section {
+            padding: 40px 25px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: normal;
+            letter-spacing: 1px;
+        }
+
+        /* Блок 1: Главный экран */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80') center/cover;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .btn-open {
+            background-color: var(--gold-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            transition: 0.3s;
+        }
+
+        .btn-open:hover {
+            opacity: 0.9;
+        }
+
+        .hero .date {
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .hero .names {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-style: italic;
+        }
+
+        /* Блок 2: Приветствие */
+        .welcome-text {
+            font-style: italic;
+            white-space: pre-line;
+            font-size: 15px;
+            color: #5c5552;
+            line-height: 1.8;
+        }
+
+        /* Блок 3: Календарь */
+        .calendar-box {
+            display: inline-block;
+            border: 1px solid var(--gold-color);
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .calendar-month {
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .calendar-date {
+            font-size: 32px;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-color);
+            font-weight: bold;
+        }
+
+        /* Блок 4: Место проведения */
+        .btn-gis {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Блок 5: Анкета */
+        form {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+      input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .radio-group {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .radio-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background-color: var(--gold-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Блок 6: Таймер и контакты */
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .timer-item {
+            background: #fdfbf7;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            min-width: 50px;
+        }
+
+        .timer-num {
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .timer-lbl {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .footer {
+            font-style: italic;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Аудиоплеер для фоновой музыки -->
-  <div class="audio-player">
-    <button class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</button>
-    <span style="font-size: 12px; color: #fff;">Хөгжим</span>
-    <audio id="bgMusic" loop src="music.mp3"></audio>
-  </div>
+<div class="wrapper">
 
-  <div class="page">
-    <!-- Шапка -->
-    <div class="card">
-      <h1>Дилээшкинче чалалга</h1>
-      <p style="font-size: 18px; color: #64ffda; font-weight: bold;">Сурун (Ай-Херел) & Августа</p>
-      <p>Ноябрь 15, 2026</p>
-    </div>
-    <!-- Первое фото -->
-    <div class="card">
-      <img src="photo_2026-10-15_19-45-06.jpg" alt="Сурун & Августа" class="photo">
-    </div>
+    <!-- БЛОК 1: Главный экран -->
+    <header class="hero">
+        <h1>Дилээшкин байырлалынче чалалга</h1>
+        <button class="btn-open" onclick="document.getElementById('welcome').scrollIntoView({behavior: 'smooth'})">Чалалганы ажыдарда бээр базыптынар</button>
+        <div class="date">15 • 11 • 26</div>
+        <div class="names">Сурун & Августа</div>
+    </header>
 
-    <!-- Текст приглашения -->
-    <div class="card">
-      <h2>Хүндүлүг төрелдер!</h2>
-      <p>Тоол шагдан, Бурун шагдан өгбелерниң<br>
-      Домаа-сөзүн, ёзу-чанчыл, дүрүмнерин<br>
-      Ол-ла олчаан кадагалап арттырып кээр<br>
-      Келин кысты айтырар деп байырлалче...</p>
-      <p>Өгбелерниң ёзу-чанчыл айы-биле өөрүшкүнү, йөрээлдиңер сөңнеп тургаш, Амбырганнап кээриңерни чаладывыс!</p>
-    </div>
+    <!-- БЛОК 2: Приветствие -->
+    <section id="welcome">
+        <h2>ХҮНДҮЛҮГ ААЛЧЫЛАР!</h2>
+        <p class="welcome-text">
+Тоол шагдан, Бурун шагдан өгбелерниң
+Домаа-сөзүн, ёзу-чаңчыл, дүрүмнерин
+Ол-ла олчаан кадагалап арттырып кээр
+Келин кысты айтырар деп байырлалче
+Өгбелерниң ёзу-чанчыл аайы-биле
+өөрүшкүңер, йорээлинер сөңнеп тургаш,
+Өлчей-кежик, буян-чолду актап тургаш
+Актын-агын, кежик-чолдап йорээвишаан
+Амырганнап кээриңерни чаладывыс!
+        </p>
+    </section>
 
-    <!-- Второе фото с детьми -->
-    <div class="card">
-      <img src="photo_2026-10-15_19-45-22.jpg" alt="Хылбык-дой" class="photo">
-    </div>
+    <!-- БЛОК 3: Календарь -->
+    <section>
+        <h2>НОЯБРЬ 2026</h2>
+        <div class="calendar-box">
+            <div class="calendar-month">Байырлал хүнү</div>
+            <div class="calendar-date">15</div>
+        </div>
+    </section>
 
-    <!-- Место проведения -->
-    <div class="card">
-      <h2>Болур чери</h2>
-      <p><strong>Кафе «Династия»</strong></p>
-      <p>г. Кызыл, ул. Комсомольская, 56</p>
-    </div>
+    <!-- БЛОК 4: Место проведения -->
+    <section>
+        <h2>БОЛУР ЧЕРИ</h2>
+        <p>
+            <strong>Кафе «Династия»</strong><br>
+            г. Кызыл, ул. Комсомольская 56<br>
+            <strong>14:00 шакта</strong>
+        </p>
+        <a href="https://2gis.kg/kyzyl/firm/70000001018265012" target="_blank" class="btn-gis">Как добраться? (2GIS)</a>
+        
+        <h2 style="margin-top: 40px;">ААЛЧЫЛАРНЫҢ КИЧЭЭНГЕЙИНГЕ</h2>
+        <p style="font-style: italic;">Шагында озалдавайын моорлап келириңерни манадывыс!</p>
+    </section>
 
-    <!-- Анкета -->
-    <div class="card">
-      <h2>Анкета</h2>
-      <p style="font-size: 13px; color: #cbd5e1;">Чалалгага харыылаарыңарны диледивис</p>
-      
-      <form action="https://formspree.io/f/dudupshagdyrzap@gmail.com" method="POST">
-        <label>Адыңар</label>
-        <input type="text" name="name" required placeholder="Введите имя">
+    <!-- БЛОК 5: Анкета для гостей -->
+    <section>
+        <h2>АНКЕТА</h2>
+        <p style="font-size: 13px; color: #777;">Чалалгага харыылаарыңарны диледивис</p>
+        <form onsubmit="event.preventDefault(); alert('Харыыңыз хүлээп алытынды! Улуг четтирти!»);">
+            <label for="fname">Адыңар</label>
+            <input type="text" id="fname" placeholder="Введите имя" required>
 
-        <label>Фамилияңар</label>
-        <input type="text" name="surname" required placeholder="Введите фамилию">
+            <label for="lname">Фамилияңар</label>
+            <input type="text" id="lname" placeholder="Введите фамилию" required>
+            <label>Байырлалга келир силер бе?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="come" required> Ийе, баар мен(бис)</label><br>
+                <label><input type="radio" name="come"> Чок, шыдавас мен(бис)</label>
+            </div>
 
-        <label>Байырлалга келир силер бе?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="status" value="Ийе, баар мен(бис)" checked> Ийе, баар мен(бис)</label>
-          <label><input type="radio" name="status" value="Чок, шыдавас мен(бис)"> Чок, шыдавас мен(бис)</label>
+            <label>Өөнүң ээзи (ишти)-биле келир силер бе?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="partner" required> Ийе</label>
+                <label><input type="radio" name="partner"> Чок</label>
+            </div>
+
+            <button type="submit" class="btn-submit">Харыыны чорутур</button>
+        </form>
+    </section>
+
+    <!-- БЛОК 6: Контакты и обратный отсчет -->
+    <section>
+        <p style="font-size: 14px;">
+            Айтырыглар тургустунуп келзе, харылзажыр дугаары:<br>
+            <strong>Кыстың авазы: 8 (995) 517-42-40</strong>
+        </p>
+
+        <h3 style="margin-top: 30px; font-size: 16px;">Байырлалга чедир арткан хонуктар</h3>
+        <div class="timer-grid">
+            <div class="timer-item">
+                <div class="timer-num" id="days">00</div>
+                <div class="timer-lbl">Хонук</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-num" id="hours">00</div>
+                <div class="timer-lbl">Шак</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-num" id="minutes">00</div>
+                <div class="timer-lbl">Минут</div>
+            </div>
+            <div class="timer-item">
+                <div class="timer-num" id="seconds">00</div>
+                <div class="timer-lbl">Секунд</div>
+            </div>
         </div>
 
-        <label>Өөнүң ээзи (ишти)-биле келир силер бе?</label>
-        <div class="radio-group">
-          <label><input type="radio" name="with_pair" value="Ийе" checked> Ийе</label>
-          <label><input type="radio" name="with_pair" value="Чок"> Чок</label>
+        <div class="footer">
+            Хүндүткел биле!<br>
+            <strong>Дудуптарның Өг-бүлези</strong>
         </div>
+    </section>
 
-        <button type="submit" class="btn">Харыыны чорутур</button>
-      </form>
-    </div>
+</div>
 
-    <!-- Контакты (где стояла стрелка мышки) -->
-    <div class="card">
-      <h2>Харылзажыр дугаары</h2>
-      <p>Айтырыглар тургустунуп келзе, харылзажыр дугаары:</p>
-      <a href="tel:89955174240" class="phone-link">8 (995) 517-42-40</a>
-    </div>
+<script>
+    // Скрипт таймера обратного отсчета до 15 ноября 2026 года
+    const targetDate = new Date('November 15, 2026 14:00:00').getTime();
 
-    <!-- Таймер обратного отсчета -->
-    <div class="card">
-      <h2>Байырлалга чедир</h2>
-      <p style="font-size: 13px; color: #94a3b8;">Арткан хонуктар</p>
-      <div class="timer">
-        <div class="time-box"><div class="num" id="days">00</div><div class="label">Хонук</div></div>
-        <div class="time-box"><div class="num" id="hours">00</div><div class="label">Шаг</div></div>
-        <div class="time-box"><div class="num" id="minutes">00</div><div class="label">Минут</div></div>
-        <div class="time-box"><div class="num" id="seconds">00</div><div class="label">Секунд</div></div>
-      </div>
-    </div>
-  </div>
+    function updateTimer() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
 
-  <script>
-    // Таймер обратного отсчета до 15 ноября 2026
-    const targetDate = new Date("November 15, 2026 15:00:00").getTime();
-    setInterval(function() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      if (diff > 0) {
-        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
-      }
-    }, 1000);
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    // Управление музыкой
-    function toggleMusic() {
-      const music = document.getElementById("bgMusic");
-      const btn = document.getElementById("musicBtn");
-      if (music.paused) {
-        music.play();
-        btn.innerText = "⏸️";
-      } else {
-        music.pause();
-        btn.innerText = "🎵";
-      }
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
     }
-  </script>
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
 </body>
 </html>
