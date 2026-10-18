@@ -17,16 +17,16 @@
         body {
             margin: 0;
             padding: 0;
-            //background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
-        background-image: url('il_794xN.6234259713_gueh.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
-    background-blend-mode: overlay;
-}
+            background-image: url('il_794xN.6234259713_gueh.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            background-blend-mode: overlay;
+        }
+
         .wrapper {
             max-width: 600px;
             margin: 0 auto;
@@ -34,60 +34,81 @@
             box-shadow: none;
         }
 
-        section {
-            padding: 40px 25px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: normal;
-            letter-spacing: 1px;
-        }
-
-        /* Блок 1: Главный экран */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80') center/cover;
+        /* Экран 1: Обложка */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
             color: white;
-            padding: 80px 20px;
             text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 0.6s ease;
         }
 
-        .hero h1 {
+        #welcome-screen h1 {
             font-size: 28px;
             margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        #welcome-screen .date {
+            font-size: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        #welcome-screen .names {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-style: italic;
+            margin-bottom: 30px;
         }
 
         .btn-open {
             background-color: var(--gold-color);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 14px 30px;
             font-size: 14px;
             font-family: 'Montserrat', sans-serif;
             border-radius: 25px;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 30px;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .btn-open:hover {
             opacity: 0.9;
+            transform: scale(1.05);
         }
 
-        .hero .date {
-            font-size: 20px;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+        /* Основной контент (скрыт до нажатия) */
+        #main-content {
+            display: none;
         }
 
-        .hero .names {
+        section {
+            padding: 40px 25px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.85); /* Полупрозрачный фон блоков для читаемости */
+        }
+
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-style: italic;
+            font-weight: normal;
+            letter-spacing: 1px;
         }
 
         /* Блок 2: Приветствие */
@@ -106,6 +127,7 @@
             padding: 20px 30px;
             border-radius: 8px;
             margin-top: 15px;
+            background: #fff;
         }
         .calendar-month {
             font-size: 16px;
@@ -146,13 +168,15 @@
             margin-bottom: 5px;
             margin-top: 15px;
         }
-      input[type="text"] {
+
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
+            background: #fff;
         }
 
         .radio-group {
@@ -213,21 +237,30 @@
             font-size: 16px;
             margin-top: 20px;
         }
+
+        /* Плеер (скрыт, управляется кодом) */
+        #bg-music {
+            display: none;
+        }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-<audio controls>
-  <source src="track_7cbd5a53.mp3" type="audio/mpeg">
+<!-- АУДИО ТРЕК -->
+<audio id="bg-music" loop>
+    <source src="track_7cbd5a53.mp3" type="audio/mpeg">
 </audio>
-    <!-- БЛОК 1: Главный экран -->
-    <header class="hero">
-        <h1>Дилээшкин байырлалынче чалалга</h1>
-        <button class="btn-open" onclick="document.getElementById('welcome').scrollIntoView({behavior: 'smooth'})">Чалалганы ажыдарда бээр базыптынар</button>
-        <div class="date">15 • 11 • 26</div>
-        <div class="names">Сурун & Августа</div>
-    </header>
+
+<!-- ЭКРАН 1: ПЕРВАЯ СТРАНИЦА (ОБЛОЖКА) -->
+<div id="welcome-screen">
+    <div class="date">15 • 11 • 26</div>
+    <h1>Дилээшкин байырлалынче чалалга</h1>
+    <div class="names">Сурун & Августа</div>
+    <button class="btn-open" onclick="openInvitation()">Чалалганы ажыдар</button>
+</div>
+
+<!-- ЭКРАН 2: ОСНОВНОЙ САЙТ (ОТКРЫВАЕТСЯ ПО КЛИКУ) -->
+<div class="wrapper" id="main-content">
 
     <!-- БЛОК 2: Приветствие -->
     <section id="welcome">
@@ -272,7 +305,7 @@
     <section>
         <h2>АНКЕТА</h2>
         <p style="font-size: 13px; color: #777;">Чалалгага харыылаарыңарны диледивис</p>
-        <form onsubmit="event.preventDefault(); alert('Харыыңыз хүлээп алытынды! Улуг четтирти!»);">
+        <form onsubmit="event.preventDefault(); alert('Харыыңыз хүлээп алытынды! Улуг четтирти!');">
             <label for="fname">Адыңар</label>
             <input type="text" id="fname" placeholder="Введите имя" required>
 
@@ -330,6 +363,25 @@
 </div>
 
 <script>
+    // Функция открытия приглашения и запуска музыки
+    function openInvitation() {
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        const music = document.getElementById('bg-music');
+
+        // Плавно скрываем первый экран
+        welcomeScreen.style.opacity = '0';
+        setTimeout(() => {
+            welcomeScreen.style.display = 'none';
+            mainContent.style.display = 'block';
+        }, 600);
+
+        // Запускаем музыку (браузеры разрешают автоплей после клика пользователя)
+        music.play().catch(error => {
+            console.log("Автозапуск музыки заблокирован браузером:", error);
+        });
+    }
+
     // Скрипт таймера обратного отсчета до 15 ноября 2026 года
     const targetDate = new Date('November 15, 2026 14:00:00').getTime();
 
