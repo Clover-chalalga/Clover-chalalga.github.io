@@ -102,7 +102,8 @@
             padding: 40px 25px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
-            background-color: rgba(255, 255, 255, 0.85); /* Полупрозрачный фон блоков для читаемости */
+            /* Сделали фон полупрозрачным, чтобы узор сзади был виден */
+            background-color: rgba(255, 255, 255, 0.4); 
         }
 
         h1, h2, h3 {
@@ -116,7 +117,7 @@
             font-style: italic;
             white-space: pre-line;
             font-size: 15px;
-            color: #5c5552;
+            color: #3a3532;
             line-height: 1.8;
         }
 
@@ -127,7 +128,7 @@
             padding: 20px 30px;
             border-radius: 8px;
             margin-top: 15px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.7);
         }
         .calendar-month {
             font-size: 16px;
@@ -176,7 +177,7 @@
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             box-sizing: border-box;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .radio-group {
@@ -213,7 +214,7 @@
         }
 
         .timer-item {
-            background: #fdfbf7;
+            background: rgba(255, 255, 255, 0.7);
             padding: 10px 15px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
@@ -238,7 +239,6 @@
             margin-top: 20px;
         }
 
-        /* Плеер (скрыт, управляется кодом) */
         #bg-music {
             display: none;
         }
@@ -251,7 +251,7 @@
     <source src="track_7cbd5a53.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ЭКРАН 1: ПЕРВАЯ СТРАНИЦА (ОБЛОЖКА) -->
+<!-- ЭКРАН 1: ОБЛОЖКА -->
 <div id="welcome-screen">
     <div class="date">15 • 11 • 26</div>
     <h1>Дилээшкин байырлалынче чалалга</h1>
@@ -259,7 +259,7 @@
     <button class="btn-open" onclick="openInvitation()">Чалалганы ажыдар</button>
 </div>
 
-<!-- ЭКРАН 2: ОСНОВНОЙ САЙТ (ОТКРЫВАЕТСЯ ПО КЛИКУ) -->
+<!-- ЭКРАН 2: ОСНОВНОЙ САЙТ -->
 <div class="wrapper" id="main-content">
 
     <!-- БЛОК 2: Приветствие -->
@@ -277,7 +277,6 @@
 Амырганнап кээриңерни чаладывыс!
         </p>
     </section>
-
     <!-- БЛОК 3: Календарь -->
     <section>
         <h2>НОЯБРЬ 2026</h2>
@@ -304,26 +303,29 @@
     <!-- БЛОК 5: Анкета для гостей -->
     <section>
         <h2>АНКЕТА</h2>
-        <p style="font-size: 13px; color: #777;">Чалалгага харыылаарыңарны диледивис</p>
-        <form onsubmit="event.preventDefault(); alert('Харыыңыз хүлээп алытынды! Улуг четтирти!');">
+        <p style="font-size: 13px; color: #555;">Чалалгага харыылаарыңарны диледивис</p>
+        
+        <form id="rsvpForm">
             <label for="fname">Адыңар</label>
-            <input type="text" id="fname" placeholder="Введите имя" required>
+            <input type="text" id="fname" name="fname" placeholder="Введите имя" required>
 
             <label for="lname">Фамилияңар</label>
-            <input type="text" id="lname" placeholder="Введите фамилию" required>
+            <input type="text" id="lname" name="lname" placeholder="Введите фамилию" required>
+            
             <label>Байырлалга келир силер бе?</label>
             <div class="radio-group">
-                <label><input type="radio" name="come" required> Ийе, баар мен(бис)</label><br>
-                <label><input type="radio" name="come"> Чок, шыдавас мен(бис)</label>
+                <label><input type="radio" name="come" value="Ийе, баар мен(бис)" required> Ийе, баар мен(бис)</label><br>
+                <label><input type="radio" name="come" value="Чок, шыдавас мен(бис)"> Чок, шыдавас мен(бис)</label>
             </div>
 
             <label>Өөнүң ээзи (ишти)-биле келир силер бе?</label>
             <div class="radio-group">
-                <label><input type="radio" name="partner" required> Ийе</label>
-                <label><input type="radio" name="partner"> Чок</label>
+                <label><input type="radio" name="partner" value="Ийе" required> Ийе</label>
+                <label><input type="radio" name="partner" value="Чок"> Чок</label>
             </div>
 
-            <button type="submit" class="btn-submit">Харыыны чорутур</button>
+            <button type="submit" id="submitBtn" class="btn-submit">Харыыны чорутур</button>
+            <p id="responseMsg" style="display:none; color: #2e7d32; font-weight: bold; margin-top: 15px; text-align: center;">Харыыңыз хүлээп алытынды! Улуг четтирти!</p>
         </form>
     </section>
 
@@ -363,28 +365,63 @@
 </div>
 
 <script>
-    // Функция открытия приглашения и запуска музыки
+    // Вставьте сюда вашу ссылку на веб-приложение из Google Apps Script
+    const SCRIPT_URL = 'ЗДЕСЬ_ВСТАВЬТЕ_ВАШ_URL_ИЗ_APPS_SCRIPT';
+
     function openInvitation() {
         const welcomeScreen = document.getElementById('welcome-screen');
         const mainContent = document.getElementById('main-content');
         const music = document.getElementById('bg-music');
 
-        // Плавно скрываем первый экран
         welcomeScreen.style.opacity = '0';
         setTimeout(() => {
             welcomeScreen.style.display = 'none';
             mainContent.style.display = 'block';
         }, 600);
-
-        // Запускаем музыку (браузеры разрешают автоплей после клика пользователя)
         music.play().catch(error => {
             console.log("Автозапуск музыки заблокирован браузером:", error);
         });
     }
 
-    // Скрипт таймера обратного отсчета до 15 ноября 2026 года
-    const targetDate = new Date('November 15, 2026 14:00:00').getTime();
+    // Отправка данных формы в Google Таблицу
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerText = 'Чорудуп тур...';
+
+        const comeChecked = document.querySelector('input[name="come"]:checked');
+        const partnerChecked = document.querySelector('input[name="partner"]:checked');
+
+        const formData = {
+            name: document.getElementById('fname').value,
+            surname: document.getElementById('lname').value,
+            attendance: comeChecked ? comeChecked.value : '',
+            plusOne: partnerChecked ? partnerChecked.value : ''
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(() => {
+            document.getElementById('rsvpForm').reset();
+            btn.style.display = 'none';
+            document.getElementById('responseMsg').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Алдаа үндү. Текфти катап көрүңзе.');
+            btn.disabled = false;
+            btn.innerText = 'Харыыны чорутур';
+        });
+    });
+
+    // Таймер
+    const targetDate = new Date('November 15, 2026 14:00:00').getTime();
     function updateTimer() {
         const now = new Date().getTime();
         const difference = targetDate - now;
